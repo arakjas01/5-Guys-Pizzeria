@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #5e3bee;
+      font-size: 2.5em;
+    }
+
+    .tracker {
+      max-width: 600px;
+      margin: 50px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      background-color: #eee;
+      transition: all 0.3s ease;
+    }
+
+    .step.active {
+      background-color: #5e3bee;
+      color: white;
+      font-weight: bold;
+    }
+
+    .step.completed {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .circle {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: #bbb;
+    }
+
+    .step.active .circle {
+      background-color: white;
+    }
+
+    .step.completed .circle {
+      background-color: #4caf50;
+    }
+
+    .back-btn {
+      margin-top: 40px;
+      text-decoration: none;
+      padding: 10px 20px;
+      border: none;
+      background-color: #5e3bee;
+      color: white;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Order Tracker</h1>
+
+  <div class="tracker">
+    <div class="step" id="step1"><div class="circle"></div> Order Received</div>
+    <div class="step" id="step2"><div class="circle"></div> Preparing</div>
+    <div class="step" id="step3"><div class="circle"></div> Baking</div>
+    <div class="step" id="step4"><div class="circle"></div> Out for Delivery</div>
+    <div class="step" id="step5"><div class="circle"></div> Delivered</div>
+  </div>
+
+  <a href="index.html" class="back-btn">Back to Home</a>
+
+  <script>
+    const steps = [
+      document.getElementById('step1'),
+      document.getElementById('step2'),
+      document.getElementById('step3'),
+      document.getElementById('step4'),
+      document.getElementById('step5'),
+    ];
+
+    let currentStep = 0;
+
+    function updateTracker() {
+      if (currentStep > 0) {
+        steps[currentStep - 1].classList.remove('active');
+        steps[currentStep - 1].classList.add('completed');
+      }
+
+      if (currentStep < steps.length) {
+        steps[currentStep].classList.add('active');
+        currentStep++;
+        setTimeout(updateTracker, 2000); // Simulate time for each step
+      }
+    }
+
+    updateTracker();
+  </script>
+</body>
+</html>
