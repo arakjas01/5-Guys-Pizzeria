@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Order Tracker</title>
   <style>
     body {
@@ -19,7 +19,7 @@
 
     .tracker {
       max-width: 600px;
-      margin: 50px auto;
+      margin: 30px auto;
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -61,6 +61,27 @@
       background-color: #4caf50;
     }
 
+    .mode-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .mode-button {
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #ccc;
+    }
+
+    .mode-button.active {
+      background-color: #5e3bee;
+      color: white;
+    }
+
     .back-btn {
       margin-top: 40px;
       text-decoration: none;
@@ -71,34 +92,60 @@
       border-radius: 5px;
       font-size: 1em;
     }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
   <h1>Order Tracker</h1>
 
-  <div class="tracker">
-    <div class="step" id="step1"><div class="circle"></div> Order Received</div>
-    <div class="step" id="step2"><div class="circle"></div> Preparing</div>
-    <div class="step" id="step3"><div class="circle"></div> Baking</div>
-    <div class="step" id="step4"><div class="circle"></div> Out for Delivery</div>
-    <div class="step" id="step5"><div class="circle"></div> Delivered</div>
+  <div class="mode-buttons">
+    <button id="btn-delivery" class="mode-button active">Delivery</button>
+    <button id="btn-takeout" class="mode-button">Takeout</button>
   </div>
 
-  <a href="index.html" class="back-btn">Back to Home</a>
+  <!-- Delivery Tracker -->
+  <div id="delivery-tracker" class="tracker">
+    <div class="step" id="d-step1"><div class="circle"></div> Order Received</div>
+    <div class="step" id="d-step2"><div class="circle"></div> Preparing</div>
+    <div class="step" id="d-step3"><div class="circle"></div> Baking</div>
+    <div class="step" id="d-step4"><div class="circle"></div> Out for Delivery</div>
+    <div class="step" id="d-step5"><div class="circle"></div> Delivered</div>
+  </div>
+
+  <!-- Takeout Tracker -->
+  <div id="takeout-tracker" class="tracker hidden">
+    <div class="step" id="t-step1"><div class="circle"></div> Order Received</div>
+    <div class="step" id="t-step2"><div class="circle"></div> Preparing</div>
+    <div class="step" id="t-step3"><div class="circle"></div> Ready for Pickup</div>
+    <div class="step" id="t-step4"><div class="circle"></div> Picked Up</div>
+  </div>
+
+  <a href="index.html" class="back-btn">← Back to Home</a>
 
   <script>
-    const steps = [
-      document.getElementById('step1'),
-      document.getElementById('step2'),
-      document.getElementById('step3'),
-      document.getElementById('step4'),
-      document.getElementById('step5'),
+    const deliverySteps = [
+      document.getElementById('d-step1'),
+      document.getElementById('d-step2'),
+      document.getElementById('d-step3'),
+      document.getElementById('d-step4'),
+      document.getElementById('d-step5'),
     ];
 
-    let currentStep = 0;
+    const takeoutSteps = [
+      document.getElementById('t-step1'),
+      document.getElementById('t-step2'),
+      document.getElementById('t-step3'),
+      document.getElementById('t-step4'),
+    ];
 
-    function updateTracker() {
+    let dStep = 0;
+    let tStep = 0;
+
+    function updateSteps(steps, currentStep, setNextStep) {
       if (currentStep > 0) {
         steps[currentStep - 1].classList.remove('active');
         steps[currentStep - 1].classList.add('completed');
@@ -106,12 +153,42 @@
 
       if (currentStep < steps.length) {
         steps[currentStep].classList.add('active');
-        currentStep++;
-        setTimeout(updateTracker, 2000); // Simulate time for each step
+        setTimeout(() => setNextStep(steps, currentStep + 1, setNextStep), 2000);
       }
     }
 
-    updateTracker();
+    // Initial run
+    updateSteps(deliverySteps, dStep, updateSteps);
+
+    // Mode switching
+    const deliveryTracker = document.getElementById('delivery-tracker');
+    const takeoutTracker = document.getElementById('takeout-tracker');
+    const btnDelivery = document.getElementById('btn-delivery');
+    const btnTakeout = document.getElementById('btn-takeout');
+
+    btnDelivery.addEventListener('click', () => {
+      deliveryTracker.classList.remove('hidden');
+      takeoutTracker.classList.add('hidden');
+      btnDelivery.classList.add('active');
+      btnTakeout.classList.remove('active');
+      resetSteps(takeoutSteps);
+    });
+
+    btnTakeout.addEventListener('click', () => {
+      takeoutTracker.classList.remove('hidden');
+      deliveryTracker.classList.add('hidden');
+      btnTakeout.classList.add('active');
+      btnDelivery.classList.remove('active');
+      resetSteps(deliverySteps);
+      updateSteps(takeoutSteps, tStep, updateSteps);
+    });
+
+    function resetSteps(steps) {
+      for (const step of steps) {
+        step.classList.remove('active');
+        step.classList.remove('completed');
+      }
+    }
   </script>
 </body>
 </html>
