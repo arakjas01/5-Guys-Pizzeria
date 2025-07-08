@@ -27,14 +27,15 @@
       gap: 15px;
       padding: 15px;
       border-radius: 10px;
-      background-color: #eee;
+      background-color: white;
+      border: 1px solid #bbb;
       transition: all 0.3s ease;
+      color: black;
     }
 
     .step.active {
       background-color: #5e3bee;
       color: white;
-      font-weight: bold;
     }
 
     .step.completed {
@@ -46,7 +47,7 @@
       width: 25px;
       height: 25px;
       border-radius: 50%;
-      background-color: #bbb;
+      background-color: red;
     }
 
     .step.active .circle {
@@ -64,16 +65,16 @@
       margin-bottom: 30px;
     }
 
-    .mode-button {
+    .mode-link {
       padding: 10px 20px;
       font-size: 1em;
-      border: none;
+      text-decoration: none;
       border-radius: 5px;
-      cursor: pointer;
       background-color: #ccc;
+      color: #5e3bee;
     }
 
-    .mode-button.active {
+    .mode-link.active {
       background-color: #5e3bee;
       color: white;
     }
@@ -82,11 +83,9 @@
       margin-top: 40px;
       text-decoration: none;
       padding: 10px 20px;
-      border: none;
+      border-radius: 5px;
       background-color: #5e3bee;
       color: white;
-      border-radius: 5px;
-      font-size: 1em;
     }
 
     .hidden {
@@ -226,11 +225,11 @@
   <!-- ✅ Hero Image Section -->
   <section class="hero">
     <div class="hero-content">
-      <h1>Order Tracker</h1>
+       <h1>Pizza Tracker</h1>
 
   <div class="mode-buttons">
-    <button id="btn-delivery" class="mode-button active">Delivery</button>
-    <button id="btn-takeout" class="mode-button">Takeout</button>
+    <a href="#" id="btn-delivery" class="mode-link active">Delivery</a>
+    <a href="#" id="btn-takeout" class="mode-link">Takeout</a>
   </div>
 
   <!-- Delivery Tracker -->
@@ -268,10 +267,7 @@
       document.getElementById('t-step4'),
     ];
 
-    let dStep = 0;
-    let tStep = 0;
-
-    function updateSteps(steps, currentStep, setNextStep) {
+    function updateSteps(steps, currentStep) {
       if (currentStep > 0) {
         steps[currentStep - 1].classList.remove('active');
         steps[currentStep - 1].classList.add('completed');
@@ -279,12 +275,12 @@
 
       if (currentStep < steps.length) {
         steps[currentStep].classList.add('active');
-        setTimeout(() => setNextStep(steps, currentStep + 1, setNextStep), 2000);
+        setTimeout(() => updateSteps(steps, currentStep + 1), 2000);
       }
     }
 
-    // Initial run
-    updateSteps(deliverySteps, dStep, updateSteps);
+    // Initial run for delivery
+    updateSteps(deliverySteps, 0);
 
     // Mode switching
     const deliveryTracker = document.getElementById('delivery-tracker');
@@ -292,21 +288,24 @@
     const btnDelivery = document.getElementById('btn-delivery');
     const btnTakeout = document.getElementById('btn-takeout');
 
-    btnDelivery.addEventListener('click', () => {
+    btnDelivery.addEventListener('click', (event) => {
+      event.preventDefault();
       deliveryTracker.classList.remove('hidden');
       takeoutTracker.classList.add('hidden');
       btnDelivery.classList.add('active');
       btnTakeout.classList.remove('active');
       resetSteps(takeoutSteps);
+      updateSteps(deliverySteps, 0);
     });
 
-    btnTakeout.addEventListener('click', () => {
+    btnTakeout.addEventListener('click', (event) => {
+      event.preventDefault();
       takeoutTracker.classList.remove('hidden');
       deliveryTracker.classList.add('hidden');
       btnTakeout.classList.add('active');
       btnDelivery.classList.remove('active');
       resetSteps(deliverySteps);
-      updateSteps(takeoutSteps, tStep, updateSteps);
+      updateSteps(takeoutSteps, 0);
     });
 
     function resetSteps(steps) {
@@ -315,10 +314,6 @@
         step.classList.remove('completed');
       }
     }
-      
-    </div>
-</section>
-
-
+  </script>
 </body>
 </html>
