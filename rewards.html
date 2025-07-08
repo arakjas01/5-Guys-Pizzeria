@@ -31,31 +31,7 @@
 
     .rewards-info p {
       margin: 5px 0;
-    }
-
-    .earn-points {
-      margin-top: 20px;
-    }
-
-    input[type="number"] {
-      padding: 10px;
-      width: 100px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    input[type="button"] {
-      background-color: #5e3bee;
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-left: 10px;
-    }
-
-    input[type="button"]:hover {
-      background-color: #4a2cbb;
+      color: #5e3bee; /* Set text color to purple */
     }
     /* Header/Nav Styles */
     nav {
@@ -193,32 +169,10 @@
      <h1>Rewards Program</h1>
 
   <div class="rewards-info">
-    <h2>Your Points</h2>
-    <p id="pointsBalance">Current Points: 0</p>
+    <h2>Your Earned Points</h2>
+    <p>100</p>
     <p>Earning Points: 1 point for every $1 spent!</p>
   </div>
 
-  <div class="earn-points">
-    <h2>Earn Points</h2>
-    <input type="number" id="amountSpent" placeholder="Amount Spent" />
-    <input type="button" value="Add Points" onclick="addPoints()" />
-  </div>
-
-  <script>
-    let points = 0;
-
-    function addPoints() {
-      const amount = parseFloat(document.getElementById("amountSpent").value);
-      if (!isNaN(amount) && amount > 0) {
-        const earnedPoints = Math.floor(amount); // 1 point per dollar
-        points += earnedPoints;
-        document.getElementById("pointsBalance").innerText = `Current Points: ${points}`;
-        document.getElementById("amountSpent").value = ''; // Clear input
-      } else {
-        alert("Please enter a valid amount.");
-      }
-    }
-  </script>
 </body>
-</html> 
-
+</html>
