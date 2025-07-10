@@ -67,15 +67,15 @@
             margin: 5px 0 5px;
             text-align: left;
         }
-        .hero select {
-            width: 100%;
+        .hero select, .hero input[type="text"], .hero input[type="button"] {
+            width: calc(100% - 16px); /* Full width minus padding */
             padding: 8px;
             margin-bottom: 8px;
+            box-sizing: border-box; /* Include padding in width */
         }
         .hero input[type="button"] {
             background: #ff4500;
             color: white;
-            padding: 10px 25px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -201,6 +201,27 @@
     </div>
 </section>
 
+<section class="hero">
+    <div class="hero-content">
+        <div class="form-container">
+            <h1>Checkout</h1>
+            <label for="card-name">Name on Card:</label>
+            <input type="text" id="card-name" placeholder="John Doe" required>
+
+            <label for="card-number">Card Number:</label>
+            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+
+            <label for="card-expiry">Expiry Date:</label>
+            <input type="text" id="card-expiry" placeholder="MM/YY" required>
+
+            <label for="card-cvc">CVC:</label>
+            <input type="text" id="card-cvc" placeholder="123" required>
+
+            <input type="button" value="Complete Order" onclick="completeOrder()" />
+        </div>
+    </div>
+</section>
+
 <script>
     let fullOrder = [];
 
@@ -319,6 +340,20 @@
     const removePizza = (description) => {
         fullOrder = fullOrder.filter(item => item.description !== description);
         updateOrderSummary(); // Refresh the order summary
+    };
+
+    const completeOrder = () => {
+        const cardName = document.getElementById("card-name").value;
+        const cardNumber = document.getElementById("card-number").value;
+        const cardExpiry = document.getElementById("card-expiry").value;
+        const cardCVC = document.getElementById("card-cvc").value;
+
+        if (cardName && cardNumber && cardExpiry && cardCVC) {
+            alert("Order completed successfully!");
+            // Here you can implement further processing, like sending the order details to a server
+        } else {
+            alert("Please fill in all fields.");
+        }
     };
 
     // Reset size when specialty pizza changes
