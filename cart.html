@@ -140,19 +140,113 @@
     </div>
   </nav>
 
-  <!-- ✅ Hero Image Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h2>CS492 Group 1</h2>
-      <h1>FIVE GUYS PIZZERIA</h1>
-      <p>TAKEOUT & DELIVERY</p>
-      <a href="#">Order Online</a>
-    </div>
-  </section>
-
 </body>
 </html>
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Pizza - Five Guys Pizzeria</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .hero {
+            background-image: url('your-image-url.jpg'); /* Add your hero image URL */
+            background-size: cover;
+            background-position: center;
+            height: auto;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            color: white;
+            position: relative;
+            padding: 20px;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.55);
+        }
+        .hero-content {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 900px;
+            flex-wrap: wrap;
+        }
+        .form-container, .summary-container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 5px;
+            width: 40%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin: 10px;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+            width: 100%;
+        }
+        .hero label {
+            display: block;
+            margin: 5px 0 5px;
+            text-align: left;
+        }
+        .hero select, .hero input[type="text"], .hero input[type="button"] {
+            width: calc(100% - 16px); /* Full width minus padding */
+            padding: 8px;
+            margin-bottom: 8px;
+            box-sizing: border-box; /* Include padding in width */
+        }
+        .hero input[type="button"] {
+            background: #ff4500;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            margin-top: 10px;
+        }
+        .hero input[type="button"]:hover {
+            background: #e63900;
+        }
+        .summary-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            text-align: left;
+        }
+        .completion-message {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: green;
+        }
+    </style>
+</head>
+<body>
 
 <section class="hero">
     <div class="hero-content">
@@ -271,6 +365,7 @@
             <input type="text" id="card-cvc" placeholder="123" required>
 
             <input type="button" value="Complete Order" onclick="completeOrder()" />
+            <div id="completion-message" class="completion-message"></div>
         </div>
     </div>
 </section>
@@ -402,7 +497,7 @@
         const cardCVC = document.getElementById("card-cvc").value;
 
         if (cardName && cardNumber && cardExpiry && cardCVC) {
-            alert("Order completed successfully!");
+            document.getElementById("completion-message").innerText = "Order completed successfully!";
             // Here you can implement further processing, like sending the order details to a server
         } else {
             alert("Please fill in all fields.");
