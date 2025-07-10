@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,12 +24,13 @@
             background-image: url('your-image-url.jpg'); /* Add your hero image URL */
             background-size: cover;
             background-position: center;
-            height: 100vh;
+            height: auto;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             color: white;
             position: relative;
+            padding: 20px;
         }
         .hero::before {
             content: '';
@@ -41,50 +42,56 @@
             position: relative;
             text-align: center;
             z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 900px;
+            flex-wrap: wrap;
+        }
+        .form-container, .summary-container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 5px;
+            width: 40%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin: 10px;
         }
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: bold;
             margin: 10px 0;
-        }
-        .hero form {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 5px;
-            display: inline-block;
+            width: 100%;
         }
         .hero label {
             display: block;
-            margin: 10px 0 5px;
+            margin: 5px 0 5px;
             text-align: left;
         }
         .hero select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 8px;
+            margin-bottom: 8px;
         }
-        .topping-checkbox {
-            margin: 5px 0;
-            display: flex;
-            align-items: center;
-        }
-        .topping-checkbox img {
-            width: 30px; /* Adjust size as necessary */
-            height: 30px; /* Adjust size as necessary */
-            margin-right: 10px;
-        }
-        .hero input[type="submit"] {
+        .hero input[type="button"] {
             background: #ff4500;
             color: white;
-            padding: 12px 30px;
+            padding: 10px 25px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
             transition: background 0.3s ease;
+            margin-top: 10px;
         }
-        .hero input[type="submit"]:hover {
+        .hero input[type="button"]:hover {
             background: #e63900;
+        }
+        .summary-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            text-align: left;
         }
     </style>
 </head>
@@ -96,113 +103,227 @@
 
 <section class="hero">
     <div class="hero-content">
-        <h1>Order Your Pizza Online</h1>
-        <form id="pizza-order-form">
-            <label for="specialty">Choose Specialty Pizza:</label>
-            <select id="specialty">
-                <option value="">None</option>
-                <option value="classic_margherita">Classic Margherita - $12</option>
-                <option value="pepperoni_overload">Pepperoni Overload - $14</option>
-                <option value="meat_lovers">Meat Lovers - $14</option>
-                <option value="veggie_delight">Veggie Delight - $12</option>
-                <option value="bbq_chicken">BBQ Chicken - $13</option>
-                <option value="hawaiian">Hawaiian - $12</option>
+        <div class="form-container">
+            <h1>Order Online</h1>
+            <form id="pizza-order-form">
+                <label for="specialty">Choose Specialty Pizza:</label>
+                <select id="specialty">
+                    <option value="">Select a Pizza</option>
+                    <option value="classic_margherita">Classic Margherita - $12</option>
+                    <option value="pepperoni_overload">Pepperoni Overload - $14</option>
+                    <option value="meat_lovers">Meat Lovers - $14</option>
+                    <option value="veggie_delight">Veggie Delight - $12</option>
+                    <option value="bbq_chicken">BBQ Chicken - $13</option>
+                    <option value="hawaiian">Hawaiian - $12</option>
+                </select>
+
+                <label for="size">Choose Size:</label>
+                <select id="size" required>
+                    <option value="">Select Size</option>
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </form>
+
+            <h2>Build Your Own Pizza</h2>
+            <label for="custom-crust">Choose Your Crust:</label>
+            <select id="custom-crust">
+                <option value="regular">Regular</option>
+                <option value="thin">Thin</option>
+                <option value="stuffed">Stuffed (+$2)</option>
             </select>
 
-            <label for="size">Choose Size:</label>
-            <select id="size" required>
+            <label for="custom-size">Choose Size:</label>
+            <select id="custom-size">
                 <option value="">Select Size</option>
-                <option value="small">Small - $8</option>
-                <option value="medium">Medium - $10</option>
-                <option value="large">Large - $12</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
             </select>
 
-            <label>Choose Toppings:</label>
+            <label>Choose Your Toppings:</label>
             <div class="topping-checkbox">
-                <input type="checkbox" id="pepperoni" value="pepperoni">
+                <input type="checkbox" id="custom-pepperoni" value="pepperoni">
                 <img src="images/pepperoni.jpg" alt="Pepperoni">
-                <label for="pepperoni">Pepperoni</label>
+                <label for="custom-pepperoni">Pepperoni</label>
             </div>
             <div class="topping-checkbox">
-                <input type="checkbox" id="mushrooms" value="mushrooms">
+                <input type="checkbox" id="custom-mushrooms" value="mushrooms">
                 <img src="images/mushrooms.jpg" alt="Mushrooms">
-                <label for="mushrooms">Mushrooms</label>
+                <label for="custom-mushrooms">Mushrooms</label>
             </div>
             <div class="topping-checkbox">
-                <input type="checkbox" id="onions" value="onions">
+                <input type="checkbox" id="custom-onions" value="onions">
                 <img src="images/onions.jpg" alt="Onions">
-                <label for="onions">Onions</label>
+                <label for="custom-onions">Onions</label>
             </div>
             <div class="topping-checkbox">
-                <input type="checkbox" id="sausage" value="sausage">
+                <input type="checkbox" id="custom-sausage" value="sausage">
                 <img src="images/sausage.jpg" alt="Sausage">
-                <label for="sausage">Sausage</label>
+                <label for="custom-sausage">Sausage</label>
             </div>
             <div class="topping-checkbox">
-                <input type="checkbox" id="bacon" value="bacon">
+                <input type="checkbox" id="custom-bacon" value="bacon">
                 <img src="images/bacon.jpg" alt="Bacon">
-                <label for="bacon">Bacon</label>
+                <label for="custom-bacon">Bacon</label>
             </div>
             <div class="topping-checkbox">
-                <input type="checkbox" id="extra-cheese" value="extra cheese">
+                <input type="checkbox" id="custom-extra-cheese" value="extra cheese">
                 <img src="images/extra-cheese.jpg" alt="Extra Cheese">
-                <label for="extra-cheese">Extra Cheese</label>
+                <label for="custom-extra-cheese">Extra Cheese</label>
             </div>
             <div class="topping-checkbox">
-                <input type="checkbox" id="olives" value="olives">
+                <input type="checkbox" id="custom-olives" value="olives">
                 <img src="images/olives.jpg" alt="Olives">
-                <label for="olives">Olives</label>
+                <label for="custom-olives">Olives</label>
             </div>
             <div class="topping-checkbox">
-                <input type="checkbox" id="green-peppers" value="green peppers">
+                <input type="checkbox" id="custom-green-peppers" value="green peppers">
                 <img src="images/green-peppers.jpg" alt="Green Peppers">
-                <label for="green-peppers">Green Peppers</label>
+                <label for="custom-green-peppers">Green Peppers</label>
             </div>
             <div class="topping-checkbox">
-                <input type="checkbox" id="pineapple" value="pineapple">
+                <input type="checkbox" id="custom-pineapple" value="pineapple">
                 <img src="images/pineapple.jpg" alt="Pineapple">
-                <label for="pineapple">Pineapple</label>
+                <label for="custom-pineapple">Pineapple</label>
             </div>
 
-            <input type="submit" value="Order Pizza" />
-        </form>
+            <input type="button" value="Add to Order" onclick="addToOrder()" />
+        </div>
+
+        <div class="summary-container">
+            <h3>Your Order Summary</h3>
+            <div id="full-order-summary">No pizzas added yet.</div>
+            <h3>Total Price</h3>
+            <div id="total-price">Total: $0.00</div>
+        </div>
     </div>
 </section>
 
 <script>
-    document.getElementById("pizza-order-form").addEventListener("submit", function(event) {
-        event.preventDefault();
+    let fullOrder = [];
 
+    const calculateTotalPrice = () => {
+        return fullOrder.reduce((total, item) => {
+            const quantity = parseInt(item.quantity);
+            const price = item.price * quantity;
+            return total + price;
+        }, 0);
+    };
+
+    const updateOrderSummary = () => {
+        const orderSummaryHTML = fullOrder.map(item => `
+            <div>
+                <strong>${item.description}</strong><br>
+                Quantity: <select onchange="updatePizzaQuantity(this, '${item.description}')">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                Total: $${(item.price * item.quantity).toFixed(2)}
+                <button onclick="removePizza('${item.description}')">Remove</button>
+            </div>
+            <hr>
+        `).join('');
+
+        document.getElementById("full-order-summary").innerHTML = orderSummaryHTML;
+
+        // Update the total price
+        const totalPrice = calculateTotalPrice();
+        document.getElementById("total-price").innerText = 'Total: $' + totalPrice.toFixed(2);
+    };
+
+    const addToOrder = () => {
         const specialty = document.getElementById("specialty").value;
         const size = document.getElementById("size").value;
 
-        // Get all selected toppings
+        const customCrust = document.getElementById("custom-crust").value;
+        const customSize = document.getElementById("custom-size").value;
+
         const toppings = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
-                             .map(checkbox => checkbox.value);
+            .map(checkbox => checkbox.value);
 
-        let sizePrice = size === 'small' ? 8 : size === 'medium' ? 10 : size === 'large' ? 12 : 0;
+        // Add specialty pizza to order
+        if (specialty && size) {
+            let sizePrice = 0;
+            if (size === 'small') sizePrice = -2;
+            else if (size === 'large') sizePrice = 2;
 
-        // Specialty pricing
-        let specialtyPrice = 0;
-        if (specialty) {
-            specialtyPrice = specialty.includes("pepperoni_overload") || specialty.includes("meat_lovers") ? 14 : 12;
+            let specialtyPrice = 0;
+            switch (specialty) {
+                case 'classic_margherita':
+                    specialtyPrice = 12;
+                    break;
+                case 'pepperoni_overload':
+                    specialtyPrice = 14;
+                    break;
+                case 'meat_lovers':
+                    specialtyPrice = 14;
+                    break;
+                case 'veggie_delight':
+                    specialtyPrice = 12;
+                    break;
+                case 'bbq_chicken':
+                    specialtyPrice = 13;
+                    break;
+                case 'hawaiian':
+                    specialtyPrice = 12;
+                    break;
+            }
+
+            const totalPrice = specialtyPrice + sizePrice; // No toppings for specialty pizza
+
+            const orderItem = {
+                description: `${specialty.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')} - Size: ${size}`,
+                price: totalPrice,
+                quantity: 1 // Default quantity
+            };
+
+            fullOrder.push(orderItem);
         }
 
-        // Total price calculation
-        const totalPrice = sizePrice + specialtyPrice + (toppings.length * 1); // $1 for each topping
+        // Add custom pizza to order
+        if (customSize) {
+            let customSizePrice = 0;
+            if (customSize === 'small') customSizePrice = -2;
+            else if (customSize === 'large') customSizePrice = 2;
 
-        const orderSummary = {
-            specialty: specialty ? specialty.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : "None",
-            size: size,
-            toppings: toppings.length > 0 ? toppings : ["None"],
-            totalPrice: totalPrice
-        };
+            const crustPrice = customCrust === 'stuffed' ? 2 : 0; // Add $2 for stuffed crust
+            const totalPrice = 10 + customSizePrice + crustPrice + (toppings.length * 1); // Base price for custom pizza is $10
 
-        // Store the order summary in local storage
-        localStorage.setItem('orderSummary', JSON.stringify(orderSummary));
+            const customOrderItem = {
+                description: `Build Your Own Pizza - Crust: ${customCrust}, Size: ${customSize}`,
+                price: totalPrice,
+                quantity: 1 // Default quantity
+            };
 
-        // Redirect to cart.html
-        window.location.href = 'cart.html';
+            fullOrder.push(customOrderItem);
+        }
+
+        updateOrderSummary();
+
+        // Reset form after adding to order
+        document.getElementById("pizza-order-form").reset();
+    };
+
+    const updatePizzaQuantity = (selectElement, description) => {
+        const quantity = parseInt(selectElement.value);
+        const pizza = fullOrder.find(item => item.description === description);
+        if (pizza) {
+            pizza.quantity = quantity; // Update quantity
+        }
+        updateOrderSummary(); // Refresh the order summary
+    };
+
+    const removePizza = (description) => {
+        fullOrder = fullOrder.filter(item => item.description !== description);
+        updateOrderSummary(); // Refresh the order summary
+    };
+
+    // Reset size when specialty pizza changes
+    document.getElementById("specialty").addEventListener("change", function() {
+        document.getElementById("size").selectedIndex = 0; // Reset size
     });
 </script>
 
