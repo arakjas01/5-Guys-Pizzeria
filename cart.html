@@ -1,0 +1,210 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Pizza - Five Guys Pizzeria</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .hero {
+            background-image: url('your-image-url.jpg'); /* Add your hero image URL */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.55);
+        }
+        .hero-content {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .hero form {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .hero label {
+            display: block;
+            margin: 10px 0 5px;
+            text-align: left;
+        }
+        .hero select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .topping-checkbox {
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+        .topping-checkbox img {
+            width: 30px; /* Adjust size as necessary */
+            height: 30px; /* Adjust size as necessary */
+            margin-right: 10px;
+        }
+        .hero input[type="submit"] {
+            background: #ff4500;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .hero input[type="submit"]:hover {
+            background: #e63900;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>FIVE GUYS PIZZERIA</h1>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Order Your Pizza Online</h1>
+        <form id="pizza-order-form">
+            <label for="specialty">Choose Specialty Pizza:</label>
+            <select id="specialty">
+                <option value="">None</option>
+                <option value="classic_margherita">Classic Margherita - $12</option>
+                <option value="pepperoni_overload">Pepperoni Overload - $14</option>
+                <option value="meat_lovers">Meat Lovers - $14</option>
+                <option value="veggie_delight">Veggie Delight - $12</option>
+                <option value="bbq_chicken">BBQ Chicken - $13</option>
+                <option value="hawaiian">Hawaiian - $12</option>
+            </select>
+
+            <label for="size">Choose Size:</label>
+            <select id="size" required>
+                <option value="">Select Size</option>
+                <option value="small">Small - $8</option>
+                <option value="medium">Medium - $10</option>
+                <option value="large">Large - $12</option>
+            </select>
+
+            <label>Choose Toppings:</label>
+            <div class="topping-checkbox">
+                <input type="checkbox" id="pepperoni" value="pepperoni">
+                <img src="images/pepperoni.jpg" alt="Pepperoni">
+                <label for="pepperoni">Pepperoni</label>
+            </div>
+            <div class="topping-checkbox">
+                <input type="checkbox" id="mushrooms" value="mushrooms">
+                <img src="images/mushrooms.jpg" alt="Mushrooms">
+                <label for="mushrooms">Mushrooms</label>
+            </div>
+            <div class="topping-checkbox">
+                <input type="checkbox" id="onions" value="onions">
+                <img src="images/onions.jpg" alt="Onions">
+                <label for="onions">Onions</label>
+            </div>
+            <div class="topping-checkbox">
+                <input type="checkbox" id="sausage" value="sausage">
+                <img src="images/sausage.jpg" alt="Sausage">
+                <label for="sausage">Sausage</label>
+            </div>
+            <div class="topping-checkbox">
+                <input type="checkbox" id="bacon" value="bacon">
+                <img src="images/bacon.jpg" alt="Bacon">
+                <label for="bacon">Bacon</label>
+            </div>
+            <div class="topping-checkbox">
+                <input type="checkbox" id="extra-cheese" value="extra cheese">
+                <img src="images/extra-cheese.jpg" alt="Extra Cheese">
+                <label for="extra-cheese">Extra Cheese</label>
+            </div>
+            <div class="topping-checkbox">
+                <input type="checkbox" id="olives" value="olives">
+                <img src="images/olives.jpg" alt="Olives">
+                <label for="olives">Olives</label>
+            </div>
+            <div class="topping-checkbox">
+                <input type="checkbox" id="green-peppers" value="green peppers">
+                <img src="images/green-peppers.jpg" alt="Green Peppers">
+                <label for="green-peppers">Green Peppers</label>
+            </div>
+            <div class="topping-checkbox">
+                <input type="checkbox" id="pineapple" value="pineapple">
+                <img src="images/pineapple.jpg" alt="Pineapple">
+                <label for="pineapple">Pineapple</label>
+            </div>
+
+            <input type="submit" value="Order Pizza" />
+        </form>
+    </div>
+</section>
+
+<script>
+    document.getElementById("pizza-order-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const specialty = document.getElementById("specialty").value;
+        const size = document.getElementById("size").value;
+
+        // Get all selected toppings
+        const toppings = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                             .map(checkbox => checkbox.value);
+
+        let sizePrice = size === 'small' ? 8 : size === 'medium' ? 10 : size === 'large' ? 12 : 0;
+
+        // Specialty pricing
+        let specialtyPrice = 0;
+        if (specialty) {
+            specialtyPrice = specialty.includes("pepperoni_overload") || specialty.includes("meat_lovers") ? 14 : 12;
+        }
+
+        // Total price calculation
+        const totalPrice = sizePrice + specialtyPrice + (toppings.length * 1); // $1 for each topping
+
+        const orderSummary = {
+            specialty: specialty ? specialty.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : "None",
+            size: size,
+            toppings: toppings.length > 0 ? toppings : ["None"],
+            totalPrice: totalPrice
+        };
+
+        // Store the order summary in local storage
+        localStorage.setItem('orderSummary', JSON.stringify(orderSummary));
+
+        // Redirect to cart.html
+        window.location.href = 'cart.html';
+    });
+</script>
+
+</body>
+</html>
